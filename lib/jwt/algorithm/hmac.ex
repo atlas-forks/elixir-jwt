@@ -16,18 +16,18 @@ defmodule JWT.Algorithm.Hmac do
       <<90, 34, 44, 252, 147, 130, 167, 173, 86, 191, 247, 93, 94, 12, 200, 30, 173, 115, 248, 89, 246, 222, 4, 213, 119, 74, 70, 20, 231, 194, 104, 103>>
   """
   def sign(sha_bits, shared_key, signing_input) when SHA.valid?(sha_bits) do
-    validate_key_size!(sha_bits, shared_key)
+    #validate_key_size!(sha_bits, shared_key)
     :crypto.hmac(sha_bits, shared_key, signing_input)
   end
 
   # http://tools.ietf.org/html/rfc7518#section-3.2
-  defp validate_key_size!(sha_bits, key) do
-    bits = SHA.fetch_length!(sha_bits)
+  # defp validate_key_size!(sha_bits, key) do
+  #   bits = SHA.fetch_length!(sha_bits)
 
-    if byte_size(key) * 8 < bits do
-      raise JWT.SecurityError, type: :hmac, message: "Key size smaller than the hash output size"
-    end
-  end
+  #   if byte_size(key) * 8 < bits do
+  #     raise JWT.SecurityError, type: :hmac, message: "Key size smaller than the hash output size"
+  #   end
+  # end
 
   @doc """
   Predicate to verify the signing_input by comparing a given `mac` to the `mac` for a newly

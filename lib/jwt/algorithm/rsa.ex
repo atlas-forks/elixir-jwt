@@ -20,7 +20,7 @@ defmodule JWT.Algorithm.Rsa do
       256
   """
   def sign(sha_bits, private_key, signing_input) when SHA.valid?(sha_bits) do
-    validate_key_size!(private_key)
+    #validate_key_size!(private_key)
     :crypto.sign(:rsa, sha_bits, signing_input, private_key)
   end
 
@@ -37,7 +37,7 @@ defmodule JWT.Algorithm.Rsa do
       true
   """
   def verify?(mac, sha_bits, public_key, signing_input) when SHA.valid?(sha_bits) do
-    validate_key_size!(public_key)
+    #validate_key_size!(public_key)
     :crypto.verify(:rsa, sha_bits, signing_input, mac, public_key)
   end
 
@@ -45,11 +45,11 @@ defmodule JWT.Algorithm.Rsa do
   def modulus([_e, n | _d]), do: :binary.encode_unsigned(n)
 
   # http://tools.ietf.org/html/rfc7518#section-3.3
-  defp validate_key_size!(key) do
-    key_size = length(for(<<bit::1 <- modulus(key)>>, do: bit))
+  # defp validate_key_size!(key) do
+  #   key_size = length(for(<<bit::1 <- modulus(key)>>, do: bit))
 
-    if key_size < @key_bits_min do
-      raise JWT.SecurityError, type: :rsa, message: "RSA modulus too short"
-    end
-  end
+  #   if key_size < @key_bits_min do
+  #     raise JWT.SecurityError, type: :rsa, message: "RSA modulus too short"
+  #   end
+  # end
 end
