@@ -7,7 +7,7 @@ defmodule JWT.Algorithm.Rsa do
 
   require JWT.Algorithm.SHA, as: SHA
 
-  @key_bits_min 2048
+  # @key_bits_min 2048
 
   @doc """
   Return a Message Authentication Code (MAC)
